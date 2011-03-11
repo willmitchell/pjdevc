@@ -63,6 +63,11 @@ mkdir $libDir;
 chdir $libDir or die;
 $libDir = getcwd;
 
+my $unzip = "unzip";
+my $osname = $^O;
+if( $osname eq 'MSWin32' ){{
+	$unzip = "jar xvf";
+}}
 
 foreach $line (@lines) {
 	chomp $line;
@@ -88,7 +93,7 @@ foreach $line (@lines) {
 		ex("curl $url --output $of --location");
 		die "$of not there" unless -e $of;
 
-		ex("jar xvf $of");
+		ex("$unzip $of");
 		ex("rm $of");
 			
 		# my $ae = Archive::Extract->new( archive => $of );
