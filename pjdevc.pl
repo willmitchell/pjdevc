@@ -14,7 +14,6 @@
 
 use warnings;
 use Cwd;
-use Archive::Extract;
 
 #
 # Hardly a database, but these are the files, names, urls, versions, etc for the things we want to manage.
@@ -44,7 +43,7 @@ sub ex{
 	print "Executing: ",$cmd, "\n";
 	my $rval = system($cmd);	
 	if ($rval!=0) {
-		print "Warning, return value: $rval\n";
+		print "### Warning, return value: $rval\n";
 	}
 }  
 
@@ -74,6 +73,10 @@ foreach $line (@lines) {
 	print VF "export $evname=$fullDirPath\n";
 	push(@pdirs,"$fullDirPath/bin");
 	
+	if (-e $dirname && -e "$fullDirPath/of.zip"){
+		ex("rm -fr $fullDirPath");		
+	}	
+	
 	if (-e $dirname) {
 		print "Skipping $name because directory exists: $dirname\n";		
 	}else {
@@ -86,6 +89,7 @@ foreach $line (@lines) {
 		die "$of not there" unless -e $of;
 
 		ex("unzip $of");
+		ex("rm $of");
 			
 		# my $ae = Archive::Extract->new( archive => $of );
 		# 	    ### extract to cwd() ###
