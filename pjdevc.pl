@@ -75,7 +75,7 @@ foreach $line (@lines) {
 	my ($name, $evname, $url, $version) = split (/\|/, $line);
 	my $dirname="$name-$version";
 	my $fullDirPath="$libDir/$dirname";
-	print VF "$evname=$fullDirPath\n";
+	print VF "export $evname=$fullDirPath\n";
 	push(@pdirs,"$fullDirPath/bin");
 	
 	if (-e $dirname) {
@@ -108,5 +108,5 @@ foreach $line (@lines) {
 	}
 }
 $p=join(":",@pdirs);
-print VF "PATH=$p:",'$',"PATH";
+print VF "export PATH=$p:",'$',"PATH";
 close VF;
