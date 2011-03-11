@@ -60,7 +60,7 @@ my $libDir = "lib";
 # 	unlink $libDir;
 # }
 
-mkdir $libDir or die;
+mkdir $libDir;
 chdir $libDir or die;
 $libDir = getcwd;
 
@@ -83,11 +83,13 @@ foreach $line (@lines) {
 		print "Getting ", $name, " at url: $url\n";
 		$of="of.zip";
 		ex("curl $url --output $of --location");
-		die "of.zip not there" unless -e $of;
+		die "$of not there" unless -e $of;
+
+		ex("unzip $of");
 			
-		my $ae = Archive::Extract->new( archive => $of );
-	    ### extract to cwd() ###
-	    my $ok = $ae->extract or die;
+		# my $ae = Archive::Extract->new( archive => $of );
+		# 	    ### extract to cwd() ###
+		# 	    my $ok = $ae->extract or die;
 			
 		@files = glob ("*");
 		$fcount = scalar @files;
