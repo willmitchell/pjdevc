@@ -20,14 +20,19 @@ use Cwd;
 # Hardly a database, but these are the files, names, urls, versions, etc for the things we want to manage.
 #
 $db = <<END;
-ivy|IVY_HOME|http://apache.mirrors.tds.net//ant/ivy/2.2.0/apache-ivy-2.2.0-bin.zip|2.2.0
 gradle|GRADLE_HOME|Http://gradle.artifactoryonline.com/gradle/distributions/gradle-1.0-milestone-1-all.zip|1.0-m1
 groovy|GROOVY_HOME|http://dist.groovy.codehaus.org/distributions/groovy-binary-1.7.9.zip|1.7.9
 grails|GRAILS_HOME|http://dist.springframework.org.s3.amazonaws.com/release/GRAILS/grails-1.3.7.zip|1.3.7
 griffon|GRIFFON_HOME|http://dist.codehaus.org/griffon/griffon/0.9.x/griffon-0.9.2-beta-2-bin.zip|0.9.2-b2
-ant|ANT_HOME|http://apache.inetbridge.net//ant/binaries/apache-ant-1.8.2-bin.zip|1.8.2
+ivy|IVY_HOME|http://www.apache.org/dyn/closer.cgi/ant/ivy/2.2.0/apache-ivy-2.2.0-bin.zip|2.2.0
+ant|ANT_HOME|http://www.apache.org/dyn/closer.cgi/ant/binaries/apache-ant-1.8.2-bin.zip|1.8.2
 maven|MAVEN_HOME|http://www.apache.org/dyn/closer.cgi/maven/binaries/apache-maven-3.0.3-bin.zip|3.0.3
 END
+
+#
+#
+#
+
 
 my @lines = split /\n/, $db;
 
@@ -81,7 +86,7 @@ foreach $line (@lines) {
 		my $cwd1=getcwd;
 		print "Getting ", $name, " at url: $url\n";
 		$of="of.zip";
-		ex("curl $url --output $of");
+		ex("curl $url --output $of --location");
 		die "of.zip not there" unless -e $of;
 		ex("unzip $of");
 		ex("rm -f $of");
