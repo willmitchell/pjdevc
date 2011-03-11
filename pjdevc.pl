@@ -14,7 +14,7 @@
 
 use warnings;
 use Cwd;
-
+use Archive::Extract;
 
 #
 # Hardly a database, but these are the files, names, urls, versions, etc for the things we want to manage.
@@ -28,11 +28,6 @@ ivy|IVY_HOME|http://www.apache.org/dyn/closer.cgi/ant/ivy/2.2.0/apache-ivy-2.2.0
 ant|ANT_HOME|http://www.apache.org/dyn/closer.cgi/ant/binaries/apache-ant-1.8.2-bin.zip|1.8.2
 maven|MAVEN_HOME|http://www.apache.org/dyn/closer.cgi/maven/binaries/apache-maven-3.0.3-bin.zip|3.0.3
 END
-
-#
-#
-#
-
 
 my @lines = split /\n/, $db;
 
@@ -60,10 +55,11 @@ my @pdirs=();
 my $origDir=getcwd;
 my $libDir = "lib";
 
-if (-e $libDir){
-	ex("rm -fr $origDir/$libDir");
-	unlink $libDir;
-}
+# if (-e $libDir){
+# 	ex("rm -fr $origDir/$libDir");
+# 	unlink $libDir;
+# }
+
 mkdir $libDir or die;
 chdir $libDir or die;
 $libDir = getcwd;
@@ -88,9 +84,11 @@ foreach $line (@lines) {
 		$of="of.zip";
 		ex("curl $url --output $of --location");
 		die "of.zip not there" unless -e $of;
-		ex("unzip $of");
-		ex("rm -f $of");
-		
+			
+		my $ae = Archive::Extract->new( archive => $of );
+	    ### extract to cwd() ###
+	    my $ok = $ae->extract or die;
+			
 		@files = glob ("*");
 		$fcount = scalar @files;
 		print "files in dir: \n", scalar @files, " contents: ",@files.join(",");
