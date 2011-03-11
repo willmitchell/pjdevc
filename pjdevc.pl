@@ -88,7 +88,7 @@ foreach $line (@lines) {
 		ex("curl $url --output $of --location");
 		die "$of not there" unless -e $of;
 
-		ex("unzip $of");
+		ex("jar xvf $of");
 		ex("rm $of");
 			
 		# my $ae = Archive::Extract->new( archive => $of );
