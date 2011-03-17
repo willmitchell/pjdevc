@@ -75,8 +75,8 @@ sub portable_envarify{
 	$p=$_[0] or die;
 	print "Pathifying ",$p, "\n";
 	if ($windows){
-		$p =~ s|^/(\w)/|$1:\\|;
-		$p =~ s|/|\\|g;
+		$p =~ s|^/(\w)/|$1:/|;
+#		$p =~ s|/|\\\\|g;
 	}
 	print "msys envarified path: $p\n";
 	return $p;
