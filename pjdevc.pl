@@ -65,9 +65,22 @@ $libDir = getcwd;
 
 my $unzip = "unzip";
 my $osname = $^O;
-if( $osname eq 'MSWin32' ){{
+my $windows=0;
+if( $osname eq 'msys' ){{
+	$windows = 1;
 	$unzip = "jar xvf";
 }}
+
+sub portable_envarify{
+	$p=$_[0] or die;
+	print "Pathifying ",$p, "\n";
+	if ($windows){
+		$p =~ s|^/(\w)/|$0:|;
+		$p =~ s|/|\\|g;
+	}
+	print "msys envarified path: $p\n";
+	return $p;
+}
 
 foreach $line (@lines) {
 	chomp $line;
@@ -75,6 +88,7 @@ foreach $line (@lines) {
 	my ($name, $evname, $url, $version) = split (/\|/, $line);
 	my $dirname="$name-$version";
 	my $fullDirPath="$libDir/$dirname";
+	$fullDirPath = portable_envarify($fullDirPath);
 	print VF "export $evname=$fullDirPath\n";
 	push(@pdirs,"$fullDirPath/bin");
 	
