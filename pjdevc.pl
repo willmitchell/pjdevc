@@ -52,6 +52,7 @@ sub ex{
 # All downloaded tools are kept in a "lib" folder.
 #
 my @pdirs=();
+my @bdirs=();
 my $origDir=getcwd;
 my $libDir = "lib";
 
@@ -85,6 +86,15 @@ sub portable_envarify{
 	return $p;
 }
 
+sub portable_enbatify{
+	$p=$_[0] or die;
+	print "Batifying ",$p, "\n";
+	$p =~ s|^/(\w)/|$1:/|;
+	$p =~ s|/|\\|g;
+	print "platform bat path: $p\n";
+	return $p;
+}
+
 foreach $line (@lines) {
 	chomp $line;
 	chdir $libDir or die;
@@ -92,9 +102,11 @@ foreach $line (@lines) {
 	my $dirname="$name-$version";
 	my $fullDirPath="$libDir/$dirname";
 	my $envarPath = portable_envarify($fullDirPath);
-	print VF "export $evname=$envarPath $eol";
-	print BF "set $evname=$envarPath $eol";
+	my $envarBatPath = portable_enbatify($fullDirPath);
+	print VF "export $evname=$envarPath$eol";
+	print BF "set $evname=$envarBatPath$eol";
 	push(@pdirs,"$fullDirPath/bin");
+	push(@bdirs,"$envarBatPath\\bin");
 	
 	if (-e $dirname && -e "$fullDirPath/of.zip"){
 		ex("rm -fr $fullDirPath");		
@@ -137,5 +149,7 @@ foreach $line (@lines) {
 $p=join(":",@pdirs);
 print VF "export PATH=$p:",'$',"PATH";
 close VF;
-print BF "set PATH=$p:",'$',"PATH";
+
+$p=join(";",@bdirs);
+print BF "set PATH=$p;","%PATH%";
 close BF;
