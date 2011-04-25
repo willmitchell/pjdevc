@@ -36,6 +36,7 @@ my @lines = split /\n/, $db;
 # if [ -f ~/pjdevc/vars.sh ] ; then . ~/pjdevc/vars.sh ; fi
 #
 open(VF,">vars.sh") or die;
+open(BF,">vars.bat") or die;
 
 # print stuff out and warn if nonzero rval
 sub ex{
@@ -92,6 +93,7 @@ foreach $line (@lines) {
 	my $fullDirPath="$libDir/$dirname";
 	my $envarPath = portable_envarify($fullDirPath);
 	print VF "export $evname=$envarPath $eol";
+	print BF "set $evname=$envarPath $eol";
 	push(@pdirs,"$fullDirPath/bin");
 	
 	if (-e $dirname && -e "$fullDirPath/of.zip"){
@@ -135,3 +137,5 @@ foreach $line (@lines) {
 $p=join(":",@pdirs);
 print VF "export PATH=$p:",'$',"PATH";
 close VF;
+print BF "set PATH=$p:",'$',"PATH";
+close BF;
