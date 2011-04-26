@@ -77,21 +77,21 @@ if( $osname eq 'msys' ){{
 
 sub portable_envarify{
 	$p=$_[0] or die;
-	print "Pathifying ",$p, "\n";
+#	print "Pathifying ",$p, "\n";
 	if ($windows){
 		$p =~ s|^/(\w)/|$1:/|;
 		$p =~ s|/|\\\\|g;
 	}
-	print "platform envar path: $p\n";
+#	print "platform envar path: $p\n";
 	return $p;
 }
 
 sub portable_enbatify{
 	$p=$_[0] or die;
-	print "Batifying ",$p, "\n";
+#	print "Batifying ",$p, "\n";
 	$p =~ s|^/(\w)/|$1:/|;
 	$p =~ s|/|\\|g;
-	print "platform bat path: $p\n";
+#	print "platform bat path: $p\n";
 	return $p;
 }
 
@@ -153,3 +153,5 @@ close VF;
 $p=join(";",@bdirs);
 print BF "set PATH=$p;","%PATH%";
 close BF;
+
+print "Done.\n";

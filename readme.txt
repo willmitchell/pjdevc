@@ -17,15 +17,18 @@ Steps:
 
 2. cd pjdevc
 
-3. ./pjdevc.pl
+3. perl pjdevc.pl
 
-4. Modify your ~/.profile, so that it contains something like:
+4u. On Unix/OSX, modify your ~/.profile, so that it contains something like:
 
-	if [ -f ~/pjdevc/vars.sh ] ; then . ~/pjdevc/vars.sh ; fi
+	. ~/pjdevc/vars.sh
 	
-5. Launch a new terminal window.  Your path should be all set, so you can run stuff like grails right away.
-
-6. Do your day job.
+4w.	On Windows, create a new shell window (cmd.exe) and run pjdevc/vars.bat.  Note
+that this way of using pjdevc only affects the current cmd.exe window.  It DOES NOT 
+modify your control panel/global environment variable settings.  Pjdevc settings 
+just supersede those in the global environment.
+	
+5. You can now run griffon, grails, gradle, maven, etc right from the command prompt.
 
 Will Mitchell
 Noblis
