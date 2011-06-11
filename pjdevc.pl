@@ -19,7 +19,7 @@ use Cwd;
 # Hardly a database, but these are the files, names, urls, versions, etc for the things we want to manage.
 #
 $db = <<END;
-gradle|GRADLE_HOME|Http://gradle.artifactoryonline.com/gradle/distributions/gradle-1.0-milestone-2-all.zip|1.0-m2
+gradle|GRADLE_HOME|Http://gradle.artifactoryonline.com/gradle/distributions/gradle-1.0-milestone-3-all.zip|1.0-m3
 groovy|GROOVY_HOME|http://dist.groovy.codehaus.org/distributions/groovy-binary-1.7.10.zip|1.7.10
 grails|GRAILS_HOME|http://dist.springframework.org.s3.amazonaws.com/release/GRAILS/grails-1.3.7.zip|1.3.7
 griffon|GRIFFON_HOME|http://dist.codehaus.org/griffon/griffon/0.9.x/griffon-0.9.2-bin.zip|0.9.2
