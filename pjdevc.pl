@@ -26,6 +26,7 @@ griffon|GRIFFON_HOME|http://dist.codehaus.org/griffon/griffon/0.9.x/griffon-0.9.
 ivy|IVY_HOME|http://mirror.cc.columbia.edu/pub/software/apache/ant/ivy/2.2.0/apache-ivy-2.2.0-bin.zip|2.2.0
 ant|ANT_HOME|http://www.eng.lsu.edu/mirrors/apache//ant/binaries/apache-ant-1.8.2-bin.zip|1.8.2
 maven|MAVEN_HOME|http://www.eng.lsu.edu/mirrors/apache//maven/binaries/apache-maven-3.0.3-bin.zip|3.0.3
+hudson|HUDSON_HOME|http://java.net/projects/hudson/downloads/download/war/hudson-2.0.1.war|2.0.2
 END
 
 my @lines = split /\n/, $db;
