@@ -19,14 +19,14 @@ use Cwd;
 # Hardly a database, but these are the files, names, urls, versions, etc for the things we want to manage.
 #
 $db = <<END;
-gradle|GRADLE_HOME|Http://gradle.artifactoryonline.com/gradle/distributions/gradle-1.0-milestone-3-all.zip|1.0-m3
-groovy|GROOVY_HOME|http://dist.groovy.codehaus.org/distributions/groovy-binary-1.7.10.zip|1.7.10
-grails|GRAILS_HOME|http://dist.springframework.org.s3.amazonaws.com/release/GRAILS/grails-1.3.7.zip|1.3.7
-griffon|GRIFFON_HOME|http://dist.codehaus.org/griffon/griffon/0.9.x/griffon-0.9.2-bin.zip|0.9.2
-ivy|IVY_HOME|http://mirror.cc.columbia.edu/pub/software/apache/ant/ivy/2.2.0/apache-ivy-2.2.0-bin.zip|2.2.0
-ant|ANT_HOME|http://www.eng.lsu.edu/mirrors/apache//ant/binaries/apache-ant-1.8.2-bin.zip|1.8.2
-maven|MAVEN_HOME|http://www.eng.lsu.edu/mirrors/apache//maven/binaries/apache-maven-3.0.3-bin.zip|3.0.3
-hudson|HUDSON_HOME|http://java.net/projects/hudson/downloads/download/war/hudson-2.0.1.war|2.0.2
+gradle|GRADLE_HOME|Http://gradle.artifactoryonline.com/gradle/distributions/gradle-1.0-milestone-4-all.zip|1.0-m4|1
+groovy|GROOVY_HOME|http://dist.groovy.codehaus.org/distributions/groovy-binary-1.7.10.zip|1.7.10|1
+grails|GRAILS_HOME|http://dist.springframework.org.s3.amazonaws.com/release/GRAILS/grails-1.3.7.zip|1.3.7|1
+griffon|GRIFFON_HOME|http://dist.codehaus.org/griffon/griffon/0.9.x/griffon-0.9.2-bin.zip|0.9.2|1
+ivy|IVY_HOME|http://mirror.cc.columbia.edu/pub/software/apache/ant/ivy/2.2.0/apache-ivy-2.2.0-bin.zip|2.2.0|1
+ant|ANT_HOME|http://www.eng.lsu.edu/mirrors/apache//ant/binaries/apache-ant-1.8.2-bin.zip|1.8.2|1
+maven|MAVEN_HOME|http://www.eng.lsu.edu/mirrors/apache//maven/binaries/apache-maven-3.0.3-bin.zip|3.0.3|1
+hudson|HUDSON_HOME|http://java.net/projects/hudson/downloads/download/war/hudson-2.0.1.war|2.0.2|0
 END
 
 my @lines = split /\n/, $db;
@@ -99,7 +99,7 @@ sub portable_enbatify{
 foreach $line (@lines) {
 	chomp $line;
 	chdir $libDir or die;
-	my ($name, $evname, $url, $version) = split (/\|/, $line);
+	my ($name, $evname, $url, $version,$dearchive) = split (/\|/, $line);
 	my $dirname="$name-$version";
 	my $fullDirPath="$libDir/$dirname";
 	my $envarPath = portable_envarify($fullDirPath);
@@ -124,26 +124,28 @@ foreach $line (@lines) {
 		ex("curl $url --output $of --location");
 		die "$of not there" unless -e $of;
 
-		ex("$unzip $of");
-		ex("rm $of");
-			
-		# my $ae = Archive::Extract->new( archive => $of );
-		# 	    ### extract to cwd() ###
-		# 	    my $ok = $ae->extract or die;
-			
-		@files = glob ("*");
-		$fcount = scalar @files;
-		print "files in dir: \n", scalar @files, " contents: ",@files.join(",");
-		if ($fcount==1){
-			$hold="$origDir/hold";
-			ex("rm -fr $hold");
-			ex("mkdir $hold");
-			$deep="$cwd1/$files[0]";
-			print "Source folder is: $deep\n";
-			ex("mv $deep/* $hold");
-			ex("rm -fr $deep");
-			ex("mv $hold/* $cwd1");
-			ex("rm -fr $hold");
+		if ($dearchive) {
+			ex("$unzip $of");
+			ex("rm $of");
+
+			# my $ae = Archive::Extract->new( archive => $of );
+			# 	    ### extract to cwd() ###
+			# 	    my $ok = $ae->extract or die;
+
+			@files = glob ("*");
+			$fcount = scalar @files;
+			print "files in dir: \n", scalar @files, " contents: ",@files.join(",");
+			if ($fcount==1){
+				$hold="$origDir/hold";
+				ex("rm -fr $hold");
+				ex("mkdir $hold");
+				$deep="$cwd1/$files[0]";
+				print "Source folder is: $deep\n";
+				ex("mv $deep/* $hold");
+				ex("rm -fr $deep");
+				ex("mv $hold/* $cwd1");
+				ex("rm -fr $hold");
+			}
 		}
 	}
 }
