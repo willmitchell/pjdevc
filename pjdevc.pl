@@ -20,9 +20,9 @@ use Cwd;
 #
 $db = <<END;
 gradle|GRADLE_HOME|Http://gradle.artifactoryonline.com/gradle/distributions/gradle-1.0-milestone-4-all.zip|1.0-m4|1
-groovy|GROOVY_HOME|http://dist.groovy.codehaus.org/distributions/groovy-binary-1.7.10.zip|1.7.10|1
+groovy|GROOVY_HOME|http://dist.groovy.codehaus.org/distributions/groovy-binary-1.8.1.zip|1.8.1|1
 grails|GRAILS_HOME|http://dist.springframework.org.s3.amazonaws.com/release/GRAILS/grails-1.3.7.zip|1.3.7|1
-griffon|GRIFFON_HOME|http://dist.codehaus.org/griffon/griffon/0.9.x/griffon-0.9.2-bin.zip|0.9.2|1
+griffon|GRIFFON_HOME|http://dist.codehaus.org/griffon/griffon/0.9.x/griffon-0.9.3-bin.zip|0.9.3|1
 ivy|IVY_HOME|http://mirror.cc.columbia.edu/pub/software/apache/ant/ivy/2.2.0/apache-ivy-2.2.0-bin.zip|2.2.0|1
 ant|ANT_HOME|http://www.eng.lsu.edu/mirrors/apache//ant/binaries/apache-ant-1.8.2-bin.zip|1.8.2|1
 maven|MAVEN_HOME|http://www.eng.lsu.edu/mirrors/apache//maven/binaries/apache-maven-3.0.3-bin.zip|3.0.3|1
