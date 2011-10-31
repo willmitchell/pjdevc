@@ -21,7 +21,7 @@ use Cwd;
 $db = <<END;
 gradle|GRADLE_HOME|Http://gradle.artifactoryonline.com/gradle/distributions/gradle-1.0-milestone-5-all.zip|1.0-m5|1
 groovy|GROOVY_HOME|http://dist.groovy.codehaus.org/distributions/groovy-binary-1.8.3.zip|1.8.3|1
-grails|GRAILS_HOME|http://dist.springframework.org.s3.amazonaws.com/release/GRAILS/grails-2.0.0.RC1.zip|2.0.0.RC1|1
+grails|GRAILS_HOME|http://dist.springframework.org.s3.amazonaws.com/milestone/GRAILS/grails-2.0.0.RC1.zip|2.0.0.RC1|1
 griffon|GRIFFON_HOME|http://dist.codehaus.org/griffon/griffon/0.9.x/griffon-0.9.4-bin.zip|0.9.4|1
 ivy|IVY_HOME|http://mirror.cc.columbia.edu/pub/software/apache/ant/ivy/2.2.0/apache-ivy-2.2.0-bin.zip|2.2.0|1
 ant|ANT_HOME|http://www.eng.lsu.edu/mirrors/apache//ant/binaries/apache-ant-1.8.2-bin.zip|1.8.2|1
