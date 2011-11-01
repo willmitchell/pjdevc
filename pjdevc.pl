@@ -38,6 +38,8 @@ my @lines = split /\n/, $db;
 open(VF,">vars.sh") or die;
 open(BF,">vars.bat") or die;
 
+
+
 # print stuff out and warn if nonzero rval
 sub ex{
 	$cmd=$_[0] or die;
@@ -149,11 +151,14 @@ foreach $line (@lines) {
 	}
 }
 $p=join(":",@pdirs);
-print VF "export PATH=$p:",'$',"PATH";
+print VF "export PATH=$p:",'$',"PATH\n";
+print VF "export GRAILS_OPTS='-Xmx1G -Xms256m -XX:MaxPermSize=256m'\n";
+
 close VF;
 
 $p=join(";",@bdirs);
-print BF "set PATH=$p;","%PATH%";
+print BF "set PATH=$p;","%PATH%\n";
+print BF "set GRAILS_OPTS='-Xmx1G -Xms256m -XX:MaxPermSize=256m'\n";
 close BF;
 
 print "Done.\n";
